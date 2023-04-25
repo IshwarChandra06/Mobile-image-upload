@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="mataheader :: headfragment">
+</head>
+<body>
+
+	<!-- Main Wrapper -->
+	<div class="main-wrapper">
+		<div th:replace="matatopmenu :: topmenufragment"></div>
+		<div th:replace="mataleftmenu :: leftmenu"></div>
+
+		<!-- Page Wrapper -->
+		<div class="page-wrapper">
+
+			<!-- Page Content -->
+			<div class="content container-fluid">
+
+				<!-- Page Header -->
+				<div class="page-header">
+					<div class="row align-items-center">
+						<div class="col">
+							<h3 class="page-heaer">
+								<i class="la la-user"> <b><span th:text="${title}"></span></b></i>
+							</h3>
+							<br>
+							<ul class="breadcrumb">
+								<li class="breadcrumb-item">Employee</li>
+								<li class="breadcrumb-item active"><span th:text="${title}"></span></li>
+							</ul>
+						</div>
+
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-6">
+						<div class="card">
+							<div class="card-body">
+								<form th:action="@{/employee/add}" enctype="multipart/form-data" th:object="${employee}" method="POST">
+									<input type="hidden" th:field="*{id}" placeholder="Area Id" class="form-control mb-4 col-4">
+									<input type="hidden" th:value="${title}" name="title" class="form-control mb-4 col-4">
+									<div class="form-group">
+										<label><b>Employee Id:<font color="red">*</font></b></label> 
+										<p th:if="${#fields.hasErrors('empId')}" th:errors="*{empId}" class="alert alert-danger"></p> 
+										<input type="text" th:field="*{empId}" placeholder="Enter Employee Id" maxlength="50"
+											class="form-control">
+									</div>
+									<div class="form-group">
+										<label><b>Name:<font color="red">*</font></b></label> 
+										<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="alert alert-danger"></p> 
+										<input type="text" th:field="*{name}" placeholder="Enter Employee Name" maxlength="100"
+											class="form-control">
+									</div>
+									<div class="form-group">
+										<label><b>Upload Image:</b></label> 
+										<input type="file" name="files" id="file" placeholder="choose file"
+											class="form-control">
+									</div>
+									<div class="text-right">
+										<button type="submit" class="btn btn-primary">Submit</button>
+									    <a class="btn btn-danger" th:href="@{/employee-list}">Cancel</a>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:replace="matafooter :: footer"></div>
+	<script src="/assets/js/app.js"></script> 
+</body>
+</html>
